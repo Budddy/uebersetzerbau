@@ -10,19 +10,14 @@ asmb:
 .L1:
 	
 	movdqu (%rdi,%r8), %xmm0
-	movdqu (%rsi,%r8), %xmm1
-	movdqu %xmm1, %xmm2
+	movdqu (%rsi,%r8), %xmm2
 
 	pminub %xmm0, %xmm2
 	movdqu %xmm2, (%rdx,%r8)
 	addq $16, %r8
 
-	PCMPISTRI $0, %xmm1, %xmm1
-	jz .L2
-	PCMPISTRI $0, %xmm0, %xmm0
+	PCMPISTRI $0, %xmm2, %xmm2
 	jnz .L1
-
-.L2:
 
 	rep
 	ret
