@@ -4,22 +4,27 @@
 asmb:
 .LFB0:
 	.cfi_startproc
+
 	movq $0, %r8
 
 .L1:
-
+	
+	movdqu (%rdi,%r8), %xmm0
 	movdqu (%rsi,%r8), %xmm1
-	pminub (%rdi,%r8), %xmm1
-	movdqu %xmm1, (%rdx,%r8)
+	movdqu %xmm1, %xmm2
 
-	mov (%rdi,%r8), %rcx
-	and (%rsi,%r8), %rcx
-	addq $1, %r8
-	jrcxz .L2
-	jmp .L1
+	pminub %xmm0, %xmm2
+	movdqu %xmm2, (%rdx,%r8)
+	addq $16, %r8
+
+	PCMPISTRI $0, %xmm1, %xmm1
+	jz .L2
+	PCMPISTRI $0, %xmm0, %xmm0
+	jnz .L1
 
 .L2:
 
+	rep
 	ret
 	.cfi_endproc
 .LFE0:
