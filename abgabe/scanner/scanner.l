@@ -4,7 +4,7 @@ whitespace		[\n\t ]
 lexem 			":"|"("|")"|";"|"="|"."|"-"|"+"|"*"|">"|"<>"|","
 id				[a-zA-Z][a-zA-Z0-9_]*
 schl			struct|end|func|return|with|do|let|in|cond|then|not|or
-comment			\/\*[^(\/\*)]*\*\/
+comment			\/\*([^*]|\*[^/])*\*\/
 
 %%
 
